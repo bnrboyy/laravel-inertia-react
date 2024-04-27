@@ -11,13 +11,9 @@ export default function TasksTable({
   tasks,
   queryParams = null,
   resoucePage = "task.index",
-  hideProjectColumn = false,
+  hideTaskColumn = false,
 }) {
   queryParams = queryParams || {};
-
-  useEffect(() => {
-    console.log(tasks);
-  }, []);
 
   const searchFieldChange = (name, value) => {
     if (value) {
@@ -70,10 +66,10 @@ export default function TasksTable({
                   sortField={"name"}
                 />
               </th>
-              {!hideProjectColumn && (
-                <th className="px-3 py-3">project name</th>
+              {!hideTaskColumn && (
+                <th className="px-3 py-3">task name</th>
               )}
-              <th onClick={(e) => sortChange("status")}>
+              <th className="px-3 py-3" onClick={(e) => sortChange("status")}>
                 <ChevronSort
                   queryParams={queryParams}
                   name="status"
@@ -127,6 +123,7 @@ export default function TasksTable({
               <th className="px-3 py-3"></th>
               <th className="px-3 py-3"></th>
               <th className="px-3 py-3"></th>
+              <th className="px-3 py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -144,7 +141,7 @@ export default function TasksTable({
                     />
                   </td>
                   <td className="px-3 py-2">{task.name}</td>
-                  {!hideProjectColumn && (
+                  {!hideTaskColumn && (
                     <td className="px-3 py-2">{task.project.name}</td>
                   )}
                   <td className="px-3 py-2">
@@ -193,7 +190,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "asc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />
@@ -202,7 +199,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 -mt-2 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "desc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />

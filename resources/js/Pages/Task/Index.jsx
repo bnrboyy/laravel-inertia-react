@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TasksTable from "./TasksTable";
 
 export default function Index({ auth, tasks, queryParams }) {
-
-  useEffect(() => {
-    console.log(tasks);
-  }, []);
-
   return (
     <AuthenticatedLayout
       user={auth.user}
       header={
-        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <div className="w-full flex justify-between items-center">
+          <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
           Tasks
-        </h2>
+          </h2>
+          <Link
+            className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+            href={route("task.create")}
+          >
+            Create Task
+          </Link>
+        </div>
       }
     >
       <Head title="Tasks" />

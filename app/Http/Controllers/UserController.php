@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCrudResource;
 
 class UserController extends Controller
 {
@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $users = $query->orderBy($sortField, $sortDirection)->paginate(10);
         return inertia('User/Index', [
-            'users' => UserResource::collection($users),
+            'users' => UserCrudResource::collection($users),
             'queryParams' => request()->query() ?: null,
             'success' => session('success'),
         ]);
@@ -49,6 +49,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
+        $data['email_verified_at'] = time();
+
         $project = User::create($data);
 
         return to_route('user.index')->with('success', 'User created successfully.');
@@ -68,7 +70,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return inertia('User/Edit', [
-            'user' => new UserResource($user),
+            'user' => new UserCrudResource($user),
         ]);
     }
 
@@ -78,7 +80,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
-        $data['updated_by'] = auth()->user()->id;
+        $data['email_verified_at'] = time();
 
         $user->update($data);
 
@@ -90,6 +92,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+
+        $name = $user->name;
+        $user->delete();
+
+        return to_route('user.index')->with('success', "User \"$name\" was deleted successfully.");
     }
 }

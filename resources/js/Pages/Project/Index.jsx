@@ -13,12 +13,8 @@ const text = "Are you sure to delete this project?";
 const description = "Delete the project";
 const buttonWidth = 80;
 
-export default function Index({ auth, projects, queryParams = null, success, dir_path }) {
+export default function Index({ auth, projects, queryParams = null, success }) {
   queryParams = queryParams || {};
-
-  useEffect(() => {
-    console.log(dir_path)
-  }, []);
 
   const searchFieldChange = (name, value) => {
     if (value) {
@@ -52,7 +48,6 @@ export default function Index({ auth, projects, queryParams = null, success, dir
   };
 
   const deleteProject = (id) => {
-    console.log(id);
     router.delete(route("project.destroy", id));
   };
 
@@ -257,7 +252,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "asc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />
@@ -266,7 +261,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 -mt-2 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "desc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />

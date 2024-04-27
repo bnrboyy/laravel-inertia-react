@@ -5,7 +5,6 @@ import TasksTable from "../Task/TasksTable";
 
 export default function Show({ user, auth, tasks, queryParams = null }) {
   useEffect(() => {
-    // console.log(user);
   }, []);
 
   return (

@@ -14,6 +14,10 @@ const buttonWidth = 80;
 export default function Index({ auth, users, queryParams = null, success }) {
   queryParams = queryParams || {};
 
+  useEffect(() => {
+    console.log(users)
+  })
+
   const searchFieldChange = (name, value) => {
     if (value) {
       queryParams[name] = value;
@@ -200,7 +204,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "asc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />
@@ -209,7 +213,7 @@ const ChevronSort = ({ queryParams, name, sortField }) => {
             "w-4 -mt-2 " +
             (queryParams.sort_field == sortField &&
             queryParams.sort_direction == "desc"
-              ? "text-white"
+              ? "dark:text-white text-gray-300"
               : "")
           }
         />
