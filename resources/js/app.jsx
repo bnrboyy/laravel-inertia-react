@@ -26,6 +26,6 @@ createInertiaApp({
         root.render(<App {...props} />);
     },
     progress: {
-        color: '#4B5563',
+        color: theme === 'dark' ? '#bf9b36' : '#4B5563',
     },
 });
